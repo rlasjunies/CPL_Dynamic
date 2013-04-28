@@ -4,7 +4,7 @@
     <title> Upload file using XHR</title>
  </head>
 <body>
-    <form id="form1" enctype="multipart/form-data" method="post" action="../pictures_uploader.php">
+    <form id="form1" enctype="multipart/form-data" method="post" action="/rest.php/pictures">
         <div class="row">
             <label for="fileToUpload">Select a file to upload</label><br/>
             <input type="file" name="fileToUpload" id="fileToUpload" onchange="fileSelected();" />
@@ -61,7 +61,7 @@
            xhr.addEventListener("load", uploadComplete, false);
            xhr.addEventListener("error", uploadFailed, false);
            xhr.addEventListener("abort", uploadCanceled, false);
-           xhr.open("POST", "../pictures_uploader.php");
+           xhr.open("POST", "/rest.php/pictures");
            xhr.send(fd);
 
        }
