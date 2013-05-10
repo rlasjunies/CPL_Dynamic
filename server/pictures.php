@@ -2,18 +2,19 @@
  
 function getPictures() {
     try {
-		echo json_encode(glob("pictures/*.{jpg,png,jpeg}", GLOB_BRACE));
+		//echo json_encode(glob("pictures/*.{jpg,png,jpeg}", GLOB_BRACE));
+        echo '{"status":"success", "value":{'.json_encode(glob("pictures/*.{jpg,png,jpeg}", GLOB_BRACE)).'}}';
     } catch(PDOException $e) {
-        echo '{"error":{"text":'. $e->getMessage() .'}}';
+        echo '{"status":"failed", "error":{"message:"'. $e->getMessage() .'"}}';
     }
 }
  
 function deletePicture($id) {
     try {
     	unlink("pictures/".$id);
-        echo '{"success":{"text":"Picture:'.$id.' deleted."}}'; 
+        echo '{"status":"success", "value":{"id":"'.$id.'"}}'; 
     } catch(PDOException $e) {
-        echo '{"error":{"text":'. $e->getMessage() .'}}';
+        echo '{"status":"failed", "error":{"message:"'. $e->getMessage() .'"}}';
     }
 }
 
@@ -91,34 +92,42 @@ if(!empty($_POST)){
                         // Si c'est OK, on teste l'upload
                         if(move_uploaded_file($_FILES['fileToUpload']['tmp_name'], TARGET.$nomImage)){
                             //echo "final file name:", TARGET.$nomImage, '<br/>';
-                            $message = 'Upload réussi !';
+                            //$message = 'Upload réussi !';
+                            $message = '{"status":"success", "value":{"id":"'. $nomImage .'"}}';
                         } else {
                             // Sinon on affiche une erreur systeme
                             $message = 'Problème lors de l\'upload !';
+                            $message = '{"status":"failed", "error":{"message":"'. $message .'"}}';
                         }
                     } else {
                         $message = 'Une erreur interne a empêché l\'uplaod de l\'image';
+                        $message = '{"status":"failed", "error":{"message":"'. $message .'"}}';
                     }
                 } else {
                     // Sinon erreur sur les dimensions et taille de l'image
                     $message = 'Erreur dans les dimensions de l\'image !';
+                    $message = '{"status":"failed", "error":{"message":"'. $message .'"}}';
                 }
             } else {
                 // Sinon erreur sur le type de l'image
                 $message = 'Le fichier à uploader n\'est pas une image !';
+                $message = '{"status":"failed", "error":{"message":"'. $message .'"}}';
             }
         } else {
             // Sinon on affiche une erreur pour l'extension
             $message = 'L\'extension du fichier est incorrecte !';
+            $message = '{"status":"failed", "error":{"message":"'. $message .'"}}';
         }
     } else {
         // Sinon on affiche une erreur pour le champ vide
         $message = 'Veuillez remplir le formulaire svp !';
+        $message = '{"status":"failed", "error":{"message":"'. $message .'"}}';
     }
 }else{
     $message = 'No POST message';
+    $message = '{"status":"failed", "error":{"message":"'. $message .'"}}';
 }
-echo('{"success":{"text":'. $message .'}}');
+echo($message);
 } 
 ?>
 

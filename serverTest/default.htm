@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Automatic tests</title>
+    <link href="app.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <form id="form1" enctype="multipart/form-data" method="post" action="http://cpairelasjunies.com/rest.php/pictures">
+        Please select a file to upload prior to start the automatic tests.
+        <div class="row">
+            <label for="fileToUpload">Select a file to upload</label><br/>
+            <input type="file" name="fileToUpload" id="fileToUpload"  />
+        </div>
+        <div class="row">
+            <input type="button" onclick="uploadFile();" value="Upload file" />
+            <!--<input type="submit" name="submit"/>-->
+            <div id="fileUploadedID"></div>
+        </div>
+    </form>
+
+    <div id="testDiv"> 
+        <!--<div id="testDivStart" style="display:none"> -->
+        <div id="testDivStart"> 
+            Now you can start the tests using the file ID: <div id="testDivFileId"></div>
+            <button onclick="startTest();">Start the tests</button>
+        </div>         
+        <div id="testDivResult" style="display:none">
+            <h1>Awaiting result...</h1>
+            <span>If this section doesn't update, check your console for errors!</span>
+         </div>
+    </div>
+    
+        
+    <script src="core_misc.js"></script>
+    <script src="core_pubsub.js"></script>
+    <script src="core.js"></script>
+    <script src="RESTRequest.js"></script>
+    <script src="tsUnit.js"></script>
+    <script src="model/paints.js"></script>
+    <script src="tests.js"></script>
+    
+</body>
+</html>

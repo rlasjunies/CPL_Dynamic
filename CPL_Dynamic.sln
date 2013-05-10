@@ -3,7 +3,27 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "client", "client\client.csproj", "{6B628BDD-27B7-4680-A8A5-C36450F1C684}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "server", "server", "{A08FDEAB-5713-4CAE-9E4D-FA3A131C1025}"
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "server", "server\", "{B51EC6FD-4FFF-45A1-AD53-AAAF0BB7EA4D}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
+		Debug.AspNetCompiler.VirtualPath = "/server"
+		Debug.AspNetCompiler.PhysicalPath = "server\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\server\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/server"
+		Release.AspNetCompiler.PhysicalPath = "server\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\server\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "56483"
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "serverTest", "serverTest\serverTest.csproj", "{7571A686-CD27-4420-94E8-7C096850ABEB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +35,14 @@ Global
 		{6B628BDD-27B7-4680-A8A5-C36450F1C684}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6B628BDD-27B7-4680-A8A5-C36450F1C684}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6B628BDD-27B7-4680-A8A5-C36450F1C684}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B51EC6FD-4FFF-45A1-AD53-AAAF0BB7EA4D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B51EC6FD-4FFF-45A1-AD53-AAAF0BB7EA4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B51EC6FD-4FFF-45A1-AD53-AAAF0BB7EA4D}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{B51EC6FD-4FFF-45A1-AD53-AAAF0BB7EA4D}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{7571A686-CD27-4420-94E8-7C096850ABEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7571A686-CD27-4420-94E8-7C096850ABEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7571A686-CD27-4420-94E8-7C096850ABEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7571A686-CD27-4420-94E8-7C096850ABEB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

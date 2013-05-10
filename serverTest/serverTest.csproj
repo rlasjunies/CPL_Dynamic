@@ -2,7 +2,7 @@
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <ProjectGuid>{6B628BDD-27B7-4680-A8A5-C36450F1C684}</ProjectGuid>
+    <ProjectGuid>{7571A686-CD27-4420-94E8-7C096850ABEB}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <OutputPath>bin</OutputPath>
@@ -16,47 +16,92 @@
     <IISExpressUseClassicPipelineMode />
   </PropertyGroup>
   <ItemGroup>
-    <Content Include="..\server\model\paints.js">
-      <Link>model\paints.js</Link>
-      <DependentUpon>paints.ts</DependentUpon>
-    </Content>
-    <Content Include="..\server\model\paints.min.js">
-      <Link>model\paints.min.js</Link>
-      <DependentUpon>paints.ts</DependentUpon>
-    </Content>
-    <Content Include="..\server\model\paints.ts">
-      <Link>model\paints.ts</Link>
-    </Content>
     <Content Include="app.css" />
-    <Content Include="app.min.js">
-      <DependentUpon>app.ts</DependentUpon>
-    </Content>
+    <TypeScriptCompile Include="core.ts" />
     <Content Include="core.js">
       <DependentUpon>core.ts</DependentUpon>
     </Content>
     <Content Include="core.min.js">
       <DependentUpon>core.ts</DependentUpon>
     </Content>
-    <Content Include="core.ts" />
-    <Content Include="default.htm" />
-    <Content Include="app.js">
-      <DependentUpon>app.ts</DependentUpon>
+    <TypeScriptCompile Include="core_misc.ts" />
+    <Content Include="core_misc.js">
+      <DependentUpon>core_misc.ts</DependentUpon>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <TypeScriptCompile Include="app.ts" />
+    <Content Include="core_misc.min.js">
+      <DependentUpon>core_misc.ts</DependentUpon>
+    </Content>
+    <Content Include="core_pubsub.js">
+      <DependentUpon>core_pubsub.ts</DependentUpon>
+    </Content>
+    <Content Include="core_pubsub.min.js">
+      <DependentUpon>core_pubsub.ts</DependentUpon>
+    </Content>
+    <Content Include="default.htm" />
+    <Content Include="libs\Object.Identical.js" />
+    <TypeScriptCompile Include="tests.ts" />
+    <Content Include="model\paints.js">
+      <DependentUpon>paints.ts</DependentUpon>
+    </Content>
+    <Content Include="model\paints.min.js">
+      <DependentUpon>paints.ts</DependentUpon>
+    </Content>
+    <Content Include="model\paints.ts" />
+    <TypeScriptCompile Include="core_pubsub.ts" />
+    <Content Include="PubSub.js">
+      <DependentUpon>core_pubsub.ts</DependentUpon>
+    </Content>
+    <Content Include="PubSub.min.js">
+      <DependentUpon>core_pubsub.ts</DependentUpon>
+    </Content>
+    <Content Include="RESTRequest.js">
+      <DependentUpon>RESTRequest.ts</DependentUpon>
+    </Content>
+    <Content Include="RESTRequest.min.js">
+      <DependentUpon>RESTRequest.ts</DependentUpon>
+    </Content>
+    <Content Include="tests.js">
+      <DependentUpon>tests.ts</DependentUpon>
+    </Content>
+    <Content Include="tests.min.js">
+      <DependentUpon>tests.ts</DependentUpon>
+    </Content>
+    <Content Include="tsUnit.js">
+      <DependentUpon>tsUnit.ts</DependentUpon>
+    </Content>
+    <Content Include="tsUnit.min.js">
+      <DependentUpon>tsUnit.ts</DependentUpon>
+    </Content>
+    <Content Include="tsUnit.ts" />
+    <TypeScriptCompile Include="RESTRequest.ts" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="web.config" />
-    <Content Include="app.js.map">
-      <DependentUpon>app.ts</DependentUpon>
-    </Content>
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="core.js.map">
       <DependentUpon>core.ts</DependentUpon>
     </Content>
-    <Content Include="..\server\model\paints.js.map">
-      <Link>model\paints.js.map</Link>
+    <Content Include="tests.js.map">
+      <DependentUpon>tests.ts</DependentUpon>
+    </Content>
+    <Content Include="RESTRequest.js.map">
+      <DependentUpon>RESTRequest.ts</DependentUpon>
+    </Content>
+    <Content Include="tsUnit.js.map">
+      <DependentUpon>tsUnit.ts</DependentUpon>
+    </Content>
+    <Content Include="model\paints.js.map">
       <DependentUpon>paints.ts</DependentUpon>
+    </Content>
+    <Content Include="PubSub.js.map">
+      <DependentUpon>core_pubsub.ts</DependentUpon>
+    </Content>
+    <Content Include="core_misc.js.map">
+      <DependentUpon>core_misc.ts</DependentUpon>
+    </Content>
+    <Content Include="core_pubsub.js.map">
+      <DependentUpon>core_pubsub.ts</DependentUpon>
     </Content>
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
@@ -65,12 +110,13 @@
       <DependentUpon>web.config</DependentUpon>
     </None>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
   </PropertyGroup>
   <PropertyGroup>
-    <RootNamespace>client</RootNamespace>
+    <RootNamespace>serverTest</RootNamespace>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
@@ -80,9 +126,9 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerPort>49471</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:55982/</IISUrl>
+          <IISUrl>http://localhost:57730/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
@@ -93,13 +139,13 @@
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
-    <TypeScriptTarget>ES3</TypeScriptTarget>
+    <TypeScriptTarget>ES5</TypeScriptTarget>
     <TypeScriptIncludeComments>true</TypeScriptIncludeComments>
     <TypeScriptSourceMap>true</TypeScriptSourceMap>
     <TypeScriptModuleKind>AMD</TypeScriptModuleKind>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Release'">
-    <TypeScriptTarget>ES3</TypeScriptTarget>
+    <TypeScriptTarget>ES5</TypeScriptTarget>
     <TypeScriptIncludeComments>false</TypeScriptIncludeComments>
     <TypeScriptSourceMap>false</TypeScriptSourceMap>
     <TypeScriptModuleKind>AMD</TypeScriptModuleKind>

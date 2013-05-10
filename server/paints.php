@@ -1,4 +1,5 @@
 <?PHP
+
 function getPaints() {
     $sql = "select * FROM paints ORDER BY name";
     try {
@@ -7,9 +8,10 @@ function getPaints() {
         $paints = $stmt->fetchAll(PDO::FETCH_OBJ);
         $db = null;
         //echo '{"paint": ' . json_encode($paints) . '}';
-        echo json_encode($paints);
+        echo '{"status":"success", "value":'.json_encode($paints).'}';
+        //echo json_encode($paints);
     } catch(PDOException $e) {
-        echo '{"error":{"text":'. $e->getMessage() .'}}';
+        echo '{"status":"failed", "error":{"message:"'. $e->getMessage() .'"}}';
     }
 }
  
@@ -22,14 +24,14 @@ function getPaint($id) {
         $stmt->execute();
         $paint = $stmt->fetchObject();
         $db = null;
-        echo json_encode($paint);
+        echo '{"status":"success", "value":'.json_encode($paint).'}';
     } catch(PDOException $e) {
-        echo '{"error":{"text":'. $e->getMessage() .'}}';
+        echo '{"status":"failed", "error":{"message:"'. $e->getMessage() .'"}}';
     }
 }
- 
+
 function addPaint() {
-    $request = Slim::getInstance()->request();
+    $request = Slim\Slim::getInstance()->request();
     $paint = json_decode($request->getBody());
     $sql = "INSERT INTO paints (name, year, description, picture) VALUES (:name, :year, :description, :picture)";
     try {
@@ -42,12 +44,12 @@ function addPaint() {
         $stmt->execute();
         $paint->id = $db->lastInsertId();
         $db = null;
-        echo json_encode($paint);
+        echo '{"status":"success", "value":'.json_encode($paint).'}';
     } catch(PDOException $e) {
-        echo '{"error":{"text":'. $e->getMessage() .'}}';
+        echo '{"status":"failed", "error":{"message:"'. $e->getMessage() .'"}}';
     }
 }
- 
+
 function updatePaint($id) {
     $request = Slim::getInstance()->request();
     $body = $request->getBody();
@@ -63,9 +65,9 @@ function updatePaint($id) {
         $stmt->bindParam("id", $id);
         $stmt->execute();
         $db = null;
-        echo json_encode($paint);
+        echo '{"status":"success", "value":'.json_encode($paint).'}';
     } catch(PDOException $e) {
-        echo '{"error":{"text":'. $e->getMessage() .'}}';
+        echo '{"status":"failed", "error":{"message:"'. $e->getMessage() .'"}}';
     }
 }
  
@@ -79,8 +81,9 @@ function deletePaint($id) {
         $paint = $stmt->fetchObject();
         $db = null;
         //echo json_encode($paint);
+        echo '{"status":"success", "value":'.json_encode($id).'}';
     } catch(PDOException $e) {
-        echo '{"error":{"text":'. $e->getMessage() .'}}';
+        echo '{"status":"failed", "error":{"message:"'. $e->getMessage() .'"}}';
     }
 	
     $sql = "DELETE FROM paints WHERE id=:id";
@@ -90,9 +93,9 @@ function deletePaint($id) {
         $stmt->bindParam("id", $id);
         $stmt->execute();
         $db = null;
-		echo json_encode($paint);
+		echo '{"status":"success", "value":'.json_encode($paint).'}';
     } catch(PDOException $e) {
-        echo '{"error":{"text":'. $e->getMessage() .'}}';
+        echo '{"status":"failed", "error":{"message:"'. $e->getMessage() .'"}}';
     }
 }
  
@@ -106,9 +109,9 @@ function findByName($query) {
         $stmt->execute();
         $paints = $stmt->fetchAll(PDO::FETCH_OBJ);
         $db = null;
-        echo '{"paint": ' . json_encode($paints) . '}';
+        echo '{"status":"success", "value":'.json_encode($paints).'}';
     } catch(PDOException $e) {
-        echo '{"error":{"text":'. $e->getMessage() .'}}';
+        echo '{"status":"failed", "error":{"message:"'. $e->getMessage() .'"}}';
     }
 }
 ?>

@@ -99,11 +99,11 @@
     <ScssShowPreviewWindow>True</ScssShowPreviewWindow>
     <TypeScriptAddGeneratedFilesToProject>true</TypeScriptAddGeneratedFilesToProject>
     <TypeScriptCompileES3>false</TypeScriptCompileES3>
-    <TypeScriptCompileOnBuild>false</TypeScriptCompileOnBuild>
+    <TypeScriptCompileOnBuild>true</TypeScriptCompileOnBuild>
     <TypeScriptGenerateJsFile>true</TypeScriptGenerateJsFile>
     <TypeScriptKeepComments>false</TypeScriptKeepComments>
     <TypeScriptMinify>true</TypeScriptMinify>
-    <TypeScriptProduceSourceMap>false</TypeScriptProduceSourceMap>
+    <TypeScriptProduceSourceMap>true</TypeScriptProduceSourceMap>
     <TypeScriptResaveWithUtf8BOM>false</TypeScriptResaveWithUtf8BOM>
     <TypeScriptShowPreviewWindow>false</TypeScriptShowPreviewWindow>
     <TypeScriptUseAmdModule>false</TypeScriptUseAmdModule>
