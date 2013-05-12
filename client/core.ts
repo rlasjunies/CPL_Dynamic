@@ -55,7 +55,7 @@ module core{
             this._value = value;
             this._error = error;
         }
-        status(): core.eCallbackSignatureStatus{
+        status(): core.rest.eCallbackSignatureStatus{
             return this._status;
         }
         value(): any{

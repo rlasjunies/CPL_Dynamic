@@ -338,7 +338,7 @@ class Slim
      * This method will immediately invoke the callable if
      * the specified mode matches the current application mode.
      * Otherwise, the callable is ignored. This should be called
-     * only _after_ you initialize your Slim app.
+     * only _after_ you initialize your Slim app().
      *
      * @param  string $mode
      * @param  mixed  $callable

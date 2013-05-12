@@ -1,18 +1,29 @@
 var core;
 (function (core) {
-    /// <reference path="core_misc.ts" />
     (function (pubsub) {
-        var PubSubMessage = (function () {
-            function PubSubMessage() {
-                this.subscribed = [];
+        var Thread = (function () {
+            function Thread() {
+                this.callbacks = [];
             }
-            return PubSubMessage;
+            return Thread;
         })();
-        pubsub.PubSubMessage = PubSubMessage;        
-        var PubSubToken = (function () {
-            function PubSubToken(thread, callback) {
-                this.thread = thread;
+        pubsub.Thread = Thread;        
+        var CallBackSubscribbed = (function () {
+            function CallBackSubscribbed(callback, args) {
+                this.once = false;
+                this.guid = core.misc.GUID_new();
                 this.callback = callback;
+                if(args) {
+                    this.args = args;
+                }
+            }
+            return CallBackSubscribbed;
+        })();
+        pubsub.CallBackSubscribbed = CallBackSubscribbed;        
+        var PubSubToken = (function () {
+            function PubSubToken(thread, guid) {
+                this.thread = thread;
+                this.guid = guid;
             }
             return PubSubToken;
         })();
@@ -21,24 +32,35 @@ var core;
             function PubSub() {
                 this._threads = [];
             }
-            PubSub.prototype.subscribe = function (msg, callback) {
-                //is a new thread?
+            PubSub.prototype.subscribe = function (msg, callback, args) {
                 var thread = core.misc.getObjectClass(msg);
                 if(!this._threads[thread]) {
-                    this._threads[thread] = new PubSubMessage();
+                    this._threads[thread] = new Thread();
                 }
-                //Add the callback to the thread
-                this._threads[thread].subscribed.push(callback);
-                return new PubSubToken(thread, callback);
+                var t = this._threads[thread];
+                var cb = new CallBackSubscribbed(callback, args);
+                t.callbacks.push(cb);
+                return new PubSubToken(thread, cb.guid);
             };
-            PubSub.prototype.unsubscribe = function (token) {
-                //does the thread exists?
+            PubSub.prototype.subscribeOnce = function (msg, callback, args) {
+                var token = this.subscribe(msg, callback, args);
                 if(this._threads[token.thread]) {
                     var thread = this._threads[token.thread];
-                    var len = thread.subscribed.lenght;
+                    var len = thread.callbacks.length;
                     while(len--) {
-                        if(thread.subscribed[len] === token.callback) {
-                            thread.subscribed.splice(len, 1);
+                        if(thread.callbacks[len].guid === token.guid) {
+                            thread.callbacks[len].once = true;
+                        }
+                    }
+                }
+            };
+            PubSub.prototype.unsubscribe = function (token) {
+                if(this._threads[token.thread]) {
+                    var thread = this._threads[token.thread];
+                    var len = thread.callbacks.length;
+                    while(len--) {
+                        if(thread.callbacks[len].guid === token.guid) {
+                            thread.callbacks.splice(len, 1);
                         }
                     }
                 }
@@ -47,9 +69,17 @@ var core;
                 var sThread = core.misc.getObjectClass(msg);
                 if(this._threads[sThread]) {
                     var oThread = this._threads[sThread];
-                    var len = oThread.subscribed.length;
+                    var len = oThread.callbacks.length;
                     while(len--) {
-                        oThread.subscribed[len](msg);
+                        if(oThread.callbacks[len].args) {
+                            oThread.callbacks[len].callback(msg, oThread.callbacks[len].args);
+                        } else {
+                            oThread.callbacks[len].callback(msg);
+                        }
+                        if(oThread.callbacks[len].once) {
+                            console.log("PubSub.RemoveOnceMessages");
+                            oThread.callbacks.splice(len, 1);
+                        }
                     }
                 }
             };

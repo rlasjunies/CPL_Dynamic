@@ -51,7 +51,7 @@ function addPaint() {
 }
 
 function updatePaint($id) {
-    $request = Slim::getInstance()->request();
+    $request = Slim\Slim::getInstance()->request();
     $body = $request->getBody();
     $paint = json_decode($body);
     $sql = "UPDATE paints SET name=:name, year=:year, description=:description, picture=:picture  WHERE id=:id";
@@ -72,7 +72,7 @@ function updatePaint($id) {
 }
  
 function deletePaint($id) {
-	$sql = "SELECT * FROM paints WHERE id=:id";
+	/*$sql = "SELECT * FROM paints WHERE id=:id";
     try {
         $db = getConnection();
         $stmt = $db->prepare($sql);
@@ -84,7 +84,7 @@ function deletePaint($id) {
         echo '{"status":"success", "value":'.json_encode($id).'}';
     } catch(PDOException $e) {
         echo '{"status":"failed", "error":{"message:"'. $e->getMessage() .'"}}';
-    }
+    }*/
 	
     $sql = "DELETE FROM paints WHERE id=:id";
     try {
@@ -93,7 +93,7 @@ function deletePaint($id) {
         $stmt->bindParam("id", $id);
         $stmt->execute();
         $db = null;
-		echo '{"status":"success", "value":'.json_encode($paint).'}';
+		echo '{"status":"success", "value":'.json_encode($id).'}';
     } catch(PDOException $e) {
         echo '{"status":"failed", "error":{"message:"'. $e->getMessage() .'"}}';
     }

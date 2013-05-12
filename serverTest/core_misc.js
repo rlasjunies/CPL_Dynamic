@@ -1,9 +1,6 @@
 var core;
 (function (core) {
     (function (misc) {
-        /* Returns the class name of the argument or undefined if
-        it's not a valid JavaScript object.
-        */
         function getObjectClass(obj) {
             if(obj && obj.constructor && obj.constructor.toString) {
                 var arr = obj.constructor.toString().match(/function\s*(\w+)/);
@@ -14,6 +11,15 @@ var core;
             return undefined;
         }
         misc.getObjectClass = getObjectClass;
+        function GUID_new() {
+            var guid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+                var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+                return v.toString(16);
+            });
+            return guid;
+        }
+        misc.GUID_new = GUID_new;
+        ;
     })(core.misc || (core.misc = {}));
     var misc = core.misc;
 })(core || (core = {}));

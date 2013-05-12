@@ -18,13 +18,30 @@
   <ItemGroup>
     <Content Include="app.css" />
     <TypeScriptCompile Include="core.ts" />
+    <TypeScriptCompile Include="core_misc.ts" />
+    <Content Include="app.js">
+      <DependentUpon>app.ts</DependentUpon>
+    </Content>
+    <Content Include="app.min.js">
+      <DependentUpon>app.ts</DependentUpon>
+    </Content>
+    <Content Include="Content\images\ajax-loader.gif" />
+    <Content Include="Content\images\icons-18-black.png" />
+    <Content Include="Content\images\icons-18-white.png" />
+    <Content Include="Content\images\icons-36-black.png" />
+    <Content Include="Content\images\icons-36-white.png" />
+    <Content Include="Content\jquery.mobile-1.3.0.css" />
+    <Content Include="Content\jquery.mobile-1.3.0.min.css" />
+    <Content Include="Content\jquery.mobile.structure-1.3.0.css" />
+    <Content Include="Content\jquery.mobile.structure-1.3.0.min.css" />
+    <Content Include="Content\jquery.mobile.theme-1.3.0.css" />
+    <Content Include="Content\jquery.mobile.theme-1.3.0.min.css" />
     <Content Include="core.js">
       <DependentUpon>core.ts</DependentUpon>
     </Content>
     <Content Include="core.min.js">
       <DependentUpon>core.ts</DependentUpon>
     </Content>
-    <TypeScriptCompile Include="core_misc.ts" />
     <Content Include="core_misc.js">
       <DependentUpon>core_misc.ts</DependentUpon>
     </Content>
@@ -37,9 +54,14 @@
     <Content Include="core_pubsub.min.js">
       <DependentUpon>core_pubsub.ts</DependentUpon>
     </Content>
+    <Content Include="core_restAPI.js">
+      <DependentUpon>core_restAPI.ts</DependentUpon>
+    </Content>
+    <Content Include="core_restAPI.min.js">
+      <DependentUpon>core_restAPI.ts</DependentUpon>
+    </Content>
     <Content Include="default.htm" />
-    <Content Include="libs\Object.Identical.js" />
-    <TypeScriptCompile Include="tests.ts" />
+    <Content Include="Scripts\Object.Identical.js" />
     <Content Include="model\paints.js">
       <DependentUpon>paints.ts</DependentUpon>
     </Content>
@@ -48,61 +70,56 @@
     </Content>
     <Content Include="model\paints.ts" />
     <TypeScriptCompile Include="core_pubsub.ts" />
-    <Content Include="PubSub.js">
-      <DependentUpon>core_pubsub.ts</DependentUpon>
-    </Content>
-    <Content Include="PubSub.min.js">
-      <DependentUpon>core_pubsub.ts</DependentUpon>
-    </Content>
-    <Content Include="RESTRequest.js">
-      <DependentUpon>RESTRequest.ts</DependentUpon>
-    </Content>
-    <Content Include="RESTRequest.min.js">
-      <DependentUpon>RESTRequest.ts</DependentUpon>
-    </Content>
-    <Content Include="tests.js">
-      <DependentUpon>tests.ts</DependentUpon>
-    </Content>
-    <Content Include="tests.min.js">
-      <DependentUpon>tests.ts</DependentUpon>
-    </Content>
-    <Content Include="tsUnit.js">
-      <DependentUpon>tsUnit.ts</DependentUpon>
-    </Content>
-    <Content Include="tsUnit.min.js">
-      <DependentUpon>tsUnit.ts</DependentUpon>
-    </Content>
-    <Content Include="tsUnit.ts" />
-    <TypeScriptCompile Include="RESTRequest.ts" />
+    <TypeScriptCompile Include="core_restAPI.ts" />
+    <TypeScriptCompile Include="app.ts" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="packages.config" />
+    <None Include="Scripts\jquery-1.9.1.intellisense.js" />
+    <Content Include="Scripts\jquery-1.9.1.js" />
+    <Content Include="Scripts\jquery-1.9.1.min.js" />
+    <Content Include="Scripts\jquery.mobile-1.3.0.js" />
+    <Content Include="Scripts\jquery.mobile-1.3.0.min.js" />
+    <Content Include="Scripts\jquery.mobile-1.3.1.js" />
+    <Content Include="Scripts\typings\jquerymobile\jquerymobile.d.ts" />
+    <Content Include="Scripts\typings\jquery\jquery.d.ts" />
+    <Content Include="Scripts\typings\node\node-0.8.8.d.ts" />
+    <Content Include="Scripts\typings\node\node.d.ts" />
+    <Content Include="Scripts\_references.js" />
+    <Content Include="tests.js">
+      <DependentUpon>app.ts</DependentUpon>
+    </Content>
+    <Content Include="tests.js.map">
+      <DependentUpon>app.ts</DependentUpon>
+    </Content>
+    <Content Include="tests.min.js">
+      <DependentUpon>app.ts</DependentUpon>
+    </Content>
     <Content Include="web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="core.js.map">
-      <DependentUpon>core.ts</DependentUpon>
-    </Content>
-    <Content Include="tests.js.map">
-      <DependentUpon>tests.ts</DependentUpon>
-    </Content>
-    <Content Include="RESTRequest.js.map">
-      <DependentUpon>RESTRequest.ts</DependentUpon>
-    </Content>
-    <Content Include="tsUnit.js.map">
-      <DependentUpon>tsUnit.ts</DependentUpon>
-    </Content>
     <Content Include="model\paints.js.map">
       <DependentUpon>paints.ts</DependentUpon>
-    </Content>
-    <Content Include="PubSub.js.map">
-      <DependentUpon>core_pubsub.ts</DependentUpon>
-    </Content>
-    <Content Include="core_misc.js.map">
-      <DependentUpon>core_misc.ts</DependentUpon>
     </Content>
     <Content Include="core_pubsub.js.map">
       <DependentUpon>core_pubsub.ts</DependentUpon>
     </Content>
+    <Content Include="core_restAPI.js.map">
+      <DependentUpon>core_restAPI.ts</DependentUpon>
+    </Content>
+    <Content Include="model\paints.min.js.map">
+      <DependentUpon>paints.js</DependentUpon>
+    </Content>
+    <Content Include="core.js.map">
+      <DependentUpon>core.ts</DependentUpon>
+    </Content>
+    <Content Include="core_misc.js.map">
+      <DependentUpon>core_misc.ts</DependentUpon>
+    </Content>
+    <Content Include="app.js.map">
+      <DependentUpon>app.ts</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jquery-1.9.1.min.map" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>

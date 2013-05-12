@@ -1,4 +1,4 @@
-var core;
+﻿var core;
 (function (core) {
     var _app;
     function app() {
@@ -11,9 +11,11 @@ var core;
         window.onerror = function (msg, url, line) {
             core.app().log(eLogSeverity.critical, new Error(msg));
             if(_app.debug()) {
-                return false;
+                return false;//do alert
+                
             } else {
-                return true;
+                return true;//do not alert end user!
+                
             }
         };
     }
@@ -24,6 +26,8 @@ var core;
             this._debug = debug;
         }
         App.prototype.log = function (sev, err) {
+            //TODO log to the server
+            //TODO est-ce qu'il faut prévoir une alerte pour visualiser les erreurs non trappées?
             if(this._debug) {
                 throw err;
             }
@@ -86,5 +90,30 @@ var core;
         return ErrorParam;
     })();
     core.ErrorParam = ErrorParam;    
-})(core || (core = {}));
+    //TODO gestion des erreur ne semble pas bonne il doit y avoir des errors dans => s'appuyer sur la gestion des erreurs js
+    //export class mtgError {
+    //    private _errornum: number;
+    //    private _errorCoreString: string;
+    //    private _errorParamList: ErrorParam[];
+    //    constructor( errorNum: number, errorCoreString: string, errorParam?: ErrorParam[] = []) {
+    //        this._errornum = errorNum;
+    //        this._errorCoreString = errorCoreString;
+    //        this._errorParamList = errorParam;
+    //    }
+    //    errorNum(): number{
+    //        return this._errornum;
+    //    }
+    //    errorCoreString(): string {
+    //        var tmp: string
+    //        tmp = "";
+    //        if ( this._errorCoreString !== undefined){
+    //            tmp = this._errorCoreString;
+    //            for ( var i = 0; i < this._errorParamList.length; i++ ) {
+    //                tmp.replace( this._errorParamList[i].key(), this._errorParamList[i].value() )
+    //            }
+    //        }
+    //        return tmp;
+    //    }
+    //}
+    })(core || (core = {}));
 //@ sourceMappingURL=core.js.map
