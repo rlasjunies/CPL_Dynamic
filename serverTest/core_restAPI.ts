@@ -1,4 +1,26 @@
 
+//TODO compare with the usage of request.JSON (jQuery)
+//new Request.JSON(
+//{
+//    url: '/list.json',
+//    onSuccess: function ( json ) {
+//        json.list.each( function ( key, val ) {
+//            new Element( 'LI' )
+//                .set( 'text', val )
+//                .addEvent( 'click', function () {
+//                    alert( 'item ' + key + ' pressed' );
+
+//                    // alert('item '+val.id+' pressed');
+//                    // considering val is an object instead of raw string, this way you must change set to something like this set('text', val.text)
+
+//                } )
+//                .inject( $( 'list' ) );
+//            // any other thing you want add to your list item 
+//        } );
+//    }
+//} ).get();
+
+//<ul id = "list" > < / ul >
 
 module rest {
 

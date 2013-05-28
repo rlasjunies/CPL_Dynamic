@@ -17,82 +17,15 @@ module core{
     export interface IEntities{
         id:string;
     }
-    export class App {
-        //private _err: mtgError;
-        private _debug: bool;
-        public PubSub: core.pubsub.PubSub;
-        
-        constructor( w: Window, debug?: bool = false ) {
-            this._debug = debug;
-            this.PubSub = new core.pubsub.PubSub();
-        }
-
-
-        log( sev: core.eLogSeverity, err: Error ) {
-            //TODO log to the server
-
-            //TODO est-ce qu'il faut prévoir une alerte pour visualiser les erreurs non trappées?
-            if ( this._debug ) {
-                throw err;
-            }
-            
-
-        }
-        debug(): bool{
-            return this._debug;
-        }
-    }
-
     
     export enum eLogSeverity{ critical, warning, information }
 
-    //export class ErrorParam{
-    //    private _key: string;
-    //    private _value: string;
-    //    constructor( key, value ) {
-    //        this._key = key;
-    //        this._value = value;
-    //    }
-    //    key(): string{
-    //        return this._key;
-    //    }
-    //    value(): string{
-    //        return this._value;
-    //    }
-    //}
+    export class App {
+        public PubSub: core.pubsub.PubSub;
 
+        constructor() {
+            this.PubSub = new core.pubsub.PubSub();
+        }
+    }
     
-    //TODO gestion des erreur ne semble pas bonne il doit y avoir des errors dans => s'appuyer sur la gestion des erreurs js
-    //export class mtgError {
-    //    private _errornum: number;
-    //    private _errorCoreString: string;
-    //    private _errorParamList: ErrorParam[];
-
-    //    constructor( errorNum: number, errorCoreString: string, errorParam?: ErrorParam[] = []) {
-    //        this._errornum = errorNum;
-    //        this._errorCoreString = errorCoreString;
-    //        this._errorParamList = errorParam; 
-    //    }
-
-
-
-    //    errorNum(): number{
-    //        return this._errornum;
-    //    }
-
-    //    errorCoreString(): string {
-    //        var tmp: string
-    //        tmp = "";
-    //        if ( this._errorCoreString !== undefined){
-    //            tmp = this._errorCoreString;
-
-    //            for ( var i = 0; i < this._errorParamList.length; i++ ) {                
-    //                tmp.replace( this._errorParamList[i].key(), this._errorParamList[i].value() )
-    //            }
-    //        }
-    //        return tmp;
-    //    }
-
-
-    //}
 }

@@ -1,9 +1,6 @@
 var core;
 (function (core) {
     (function (misc) {
-        /* Returns the class name of the argument or undefined if
-        it's not a valid JavaScript object.
-        */
         function getObjectClass(obj) {
             if(obj && obj.constructor && obj.constructor.toString) {
                 var arr = obj.constructor.toString().match(/function\s*(\w+)/);

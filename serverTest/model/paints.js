@@ -1,5 +1,8 @@
+/// <reference path="../core_restAPI.ts" />
+/// <reference path="../core_pubsub.ts" />
 var models;
 (function (models) {
+    // PubSub Messages
     var evtPaintGetted = (function () {
         function evtPaintGetted(status, value, error) {
             this.status = status;
@@ -45,6 +48,7 @@ var models;
         return evtPaintDeleted;
     })();
     models.evtPaintDeleted = evtPaintDeleted;    
+    //Entities stream
     var Paints = (function () {
         function Paints(website) {
             this._root = "paints";
@@ -57,7 +61,10 @@ var models;
                         app().PubSub.publish(new evtPaintGetted(core.enumEntityStatus.failed, null, result.error()));
                         break;
                     case rest.enumRestStatus.success:
+                        //succeed?
+                        //check the returned value and collect the ID
                         var serviceReturn = result.response();
+                        //new Paint( serviceReturn.value.id, serviceReturn.value.name, serviceReturn.value.year, serviceReturn.value.description, serviceReturn.value.picture ),
                         if(serviceReturn.status === "success") {
                             app().PubSub.publish(new evtPaintGetted(core.enumEntityStatus.success, serviceReturn.value, null));
                         } else {
@@ -75,6 +82,8 @@ var models;
                         app().PubSub.publish(new evtPaintsGetted(core.enumEntityStatus.failed, null, result.error()));
                         break;
                     case rest.enumRestStatus.success:
+                        //succeed?
+                        //check the returned value and collect the ID
                         var serviceReturn = result.response();
                         if(serviceReturn.status === "success") {
                             app().PubSub.publish(new evtPaintsGetted(core.enumEntityStatus.success, serviceReturn.value, null));
@@ -95,7 +104,10 @@ var models;
                         app().PubSub.publish(new evtPaintNewed(core.enumEntityStatus.failed, null, result.error()));
                         break;
                     case rest.enumRestStatus.success:
+                        //succeed?
+                        //check the returned value and collect the ID
                         var serviceReturn = result.response();
+                        //new Paint( serviceReturn.value.id, serviceReturn.value.name, serviceReturn.value.year, serviceReturn.value.description, serviceReturn.value.picture )
                         if(serviceReturn.status === "success") {
                             app().PubSub.publish(new evtPaintNewed(core.enumEntityStatus.success, serviceReturn.value, null));
                         } else {
@@ -115,7 +127,10 @@ var models;
                         app().PubSub.publish(new evtPaintUpdated(core.enumEntityStatus.failed, null, result.error()));
                         break;
                     case rest.enumRestStatus.success:
+                        //succeed?
+                        //check the returned value and collect the ID
                         var serviceReturn = result.response();
+                        //new Paint( serviceReturn.value.id, serviceReturn.value.name, serviceReturn.value.year, serviceReturn.value.description, serviceReturn.value.picture )
                         if(serviceReturn.status === "success") {
                             app().PubSub.publish(new evtPaintUpdated(core.enumEntityStatus.success, serviceReturn.value, null));
                         } else {
@@ -133,8 +148,11 @@ var models;
                         app().PubSub.publish(new evtPaintDeleted(core.enumEntityStatus.failed, null, result.error()));
                         break;
                     case rest.enumRestStatus.success:
+                        //succeed?
+                        //check the returned value and collect the ID
                         console.log(JSON.stringify(result));
                         var serviceReturn = result.response();
+                        //new Paint( serviceReturn.value.id, serviceReturn.value.name, serviceReturn.value.year, serviceReturn.value.description, serviceReturn.value.picture ),
                         if(serviceReturn.status === "success") {
                             app().PubSub.publish(new evtPaintDeleted(core.enumEntityStatus.success, serviceReturn.value, null));
                         } else {
@@ -148,6 +166,7 @@ var models;
         return Paints;
     })();
     models.Paints = Paints;    
+    //entity data
     var Paint = (function () {
         function Paint(id, name, year, description, picture) {
             this.id = id;

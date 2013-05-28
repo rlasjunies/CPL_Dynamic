@@ -1,27 +1,15 @@
-/// <reference path="core_pubsub.ts" />
-/// <reference path="Scripts/typings/jquerymobile/jquerymobile.d.ts" />
-/// <reference path="Scripts/typings/jquery/jquery.d.ts" />
-/// <reference path="core.ts" />
-/// <reference path="core_restAPI.ts" />
-/// <reference path="model/paints.ts" />
-/* PICTURES */
-var restPicturesTests = (function () {
+﻿var restPicturesTests = (function () {
     function restPicturesTests(image) {
-        //super();
         this._imageCreatedForTest = image;
     }
-    restPicturesTests.prototype.test_getListOfPictures = //$app - > get( '/pictures', 'getPictures' );
-    function (cbFail, cbSuccess) {
+    restPicturesTests.prototype.test_getListOfPictures = function (cbFail, cbSuccess) {
         var site = new rest.RESTRequest("http://cpairelasjunies.com/php/");
         site.request(rest.eRequestVerb.GET, "pictures", "", function (result) {
             switch(result.status()) {
                 case rest.enumRestStatus.failed:
-                    //Fail
                     cbFail(result.error(), "test_getListOfPictures");
                     break;
                 case rest.enumRestStatus.success:
-                    //succeed?
-                    //check the returned value and collect the ID
                     var restReturn = result.response();
                     if(restReturn.status === "success") {
                         console.log(JSON.stringify(restReturn.value));
@@ -34,18 +22,14 @@ var restPicturesTests = (function () {
             }
         });
     };
-    restPicturesTests.prototype.test_deletePicture = //$app - > delete ( '/pictures/:id', 'deletePicture' );
-    function (cbFail, cbSuccess) {
+    restPicturesTests.prototype.test_deletePicture = function (cbFail, cbSuccess) {
         var site = new rest.RESTRequest("http://cpairelasjunies.com/php/");
         site.request(rest.eRequestVerb.DELETE, "pictures/" + this._imageCreatedForTest, "", function (result) {
             switch(result.status()) {
                 case rest.enumRestStatus.failed:
-                    //Fail
                     cbFail(result.error(), "test_deletePicture");
                     break;
                 case rest.enumRestStatus.success:
-                    //succeed?
-                    //check the returned value and collect the ID
                     var restReturn = result.response();
                     if(restReturn.status === "success") {
                         console.log(JSON.stringify(restReturn.value));
@@ -60,26 +44,13 @@ var restPicturesTests = (function () {
     };
     return restPicturesTests;
 })();
-//$app - > post( '/pictures', 'addPicture' );
-//test_postPicture( cbFail: ( err: Error, testMethod: string ) => void , cbSuccess: ( testMethod: string ) => void ) {
-// Not succeed
-//}
-/*  PAINTS  */
 var restPaintsTests = (function () {
-    //constructor( url: string ) {
     function restPaintsTests(website) {
-        //   super();
-        //this._paints = new models.Paints( new rest.RESTRequest( url ) );
         this._paints = new models.Paints(website);
     }
-    restPaintsTests.prototype.test_postPaint = //$app - > get( '/paints/search/:query', 'findByName' );
-    //$app - > delete ( '/paints/:id', 'deletePaint' );
-    //$app ->post( '/paints', 'addPaint' );
-    function (intestID) {
-        //add a new test
+    restPaintsTests.prototype.test_postPaint = function (intestID) {
         var testID = intestID;
         app().PubSub.publish(new cmdTestAdd(testID, "Paints", "New"));
-        //Subscribe to evtPaintPosted
         var that = this;
         app().PubSub.subscribeOnce(new models.evtPaintNewed(null, null, null), function (evt, args) {
             if(evt.error) {
@@ -90,16 +61,12 @@ var restPaintsTests = (function () {
                 ;
             }
         });
-        //Call the method to be tested
         this._paint = new models.Paint("notDefined", "testName", "testDescription", "testYear 2013 May 5", "test/pictures/azertyuiop.jpg");
         this._paints.new(this._paint);
     };
-    restPaintsTests.prototype.test_UpdatePaint = //$app - > put( '/paints/:id', 'updatePaint' );
-    function (intestID) {
-        //add a new test
+    restPaintsTests.prototype.test_UpdatePaint = function (intestID) {
         var testID = intestID;
         app().PubSub.publish(new cmdTestAdd(testID, "Paints", "Update"));
-        //Subscribe to evtPaintPosted
         var that = this;
         app().PubSub.subscribeOnce(new models.evtPaintUpdated(null, null, null), function (evt, args) {
             if(evt.error) {
@@ -108,7 +75,6 @@ var restPaintsTests = (function () {
                 app().PubSub.publish(new evtTestFinished(testID, true, "Painting updated: " + JSON.stringify(evt.value)));
             }
         });
-        //Call the method to be tested
         this._paint.name = "updated";
         this._paint.description = "updated";
         this._paint.year = "updated";
@@ -116,10 +82,8 @@ var restPaintsTests = (function () {
         this._paints.update(this._paint.id, this._paint);
     };
     restPaintsTests.prototype.test_DeletePaint = function (intestID) {
-        //add a new test
         var testID = intestID;
         app().PubSub.publish(new cmdTestAdd(testID, "Paints", "Delete"));
-        //Subscribe to evtPaintPosted
         var that = this;
         app().PubSub.subscribeOnce(new models.evtPaintDeleted(null, null, null), function (evt, args) {
             if(evt.error) {
@@ -129,16 +93,11 @@ var restPaintsTests = (function () {
                 ;
             }
         });
-        //Call the method to be tested
         this._paints.delete(this._paint.id);
     };
-    restPaintsTests.prototype.test_getPaint = //$app - > get( '/paints/:id', 'getPaint' );
-    function (intestID) {
-        //New test
-        var testID = intestID;//core.misc.GUID_new();
-        
+    restPaintsTests.prototype.test_getPaint = function (intestID) {
+        var testID = intestID;
         app().PubSub.publish(new cmdTestAdd(testID, "Paints", "Get"));
-        //Subscribe to evtPaintGetted
         var that = this;
         app().PubSub.subscribeOnce(new models.evtPaintGetted(null, null, null), function (evt, args) {
             if(evt.error) {
@@ -147,16 +106,11 @@ var restPaintsTests = (function () {
                 app().PubSub.publish(new evtTestFinished(testID, true, "Painting retrieved: " + JSON.stringify(evt.value)));
             }
         });
-        //call the method
         this._paints.get(this._paint.id);
     };
-    restPaintsTests.prototype.test_getAll = //$app - > get( '/paints', 'getPaints' );
-    //$app - > options( '/paints', 'getPaints' );
-    function () {
-        //New test
+    restPaintsTests.prototype.test_getAll = function () {
         var testID = core.misc.GUID_new();
         app().PubSub.publish(new cmdTestAdd(testID, "Paints", "GetAll"));
-        //Subscribe to evtPaintsGetted
         var that = this;
         app().PubSub.subscribeOnce(new models.evtPaintsGetted(null, null, null), function (evt, args) {
             if(evt.error) {
@@ -165,7 +119,6 @@ var restPaintsTests = (function () {
                 app().PubSub.publish(new evtTestFinished(testID, true, "Painting retrieved all: " + JSON.stringify(evt.value)));
             }
         });
-        //call the method
         this._paints.getAll();
     };
     return restPaintsTests;
@@ -179,16 +132,12 @@ function uploadFile() {
     site.request(rest.eRequestVerb.POST, "pictures", fd, function (result) {
         switch(result.status()) {
             case rest.enumRestStatus.failed:
-                //Fail
                 document.getElementById("fileUploadResult").innerHTML = "Upload failed>>" + result.error() + "<<<";
                 break;
             case rest.enumRestStatus.success:
-                //succeed?
-                //check the returned value and collect the ID
                 var restReturn = result.response();
                 document.getElementById("fileUploadedID").innerHTML = restReturn.status;
                 console.log(restReturn.value.id);
-                //Prepare the test panel
                 var testDivFileId = document.getElementById("testDivFileId");
                 testDivFileId.innerHTML = restReturn.value.id;
                 globImageUploaded = restReturn.value.id;
@@ -201,19 +150,16 @@ function uploadFile() {
 window.onload = function () {
     _app = new core.App();
     subscribe(new cmdStartTest(), function (cmdStartTest) {
-        //Clean the result page before the tests
         $("#testDivResultSucceed").html("0");
         $("#testDivResultFailed").html("0");
         $("#listResult").empty();
         $.mobile.changePage("#pageTestResult");
-        //run the first tests
         var site = new rest.RESTRequest("http://cpairelasjunies.com/rest.php/");
         paintsTests = new restPaintsTests(site);
         paintsTests.test_postPaint(createPaintTestID);
         paintsTests.test_getAll();
     });
     subscribe(new evtTestFinished(null, null, null), function (evt) {
-        //start the other tests only when we have the paintID created
         if((evt.passed) && (evt.guid === createPaintTestID)) {
             paintsTests.test_getPaint(getPaintTestID);
         } else if((evt.passed) && (evt.guid === getPaintTestID)) {
@@ -271,25 +217,16 @@ var evtTestFinished = (function () {
     }
     return evtTestFinished;
 })();
-//Event registration
 var createPaintTestID = core.misc.GUID_new();
 var getPaintTestID = core.misc.GUID_new();
 var updatePaintTestID = core.misc.GUID_new();
 var deletePaintTestID = core.misc.GUID_new();
-//function startTest() {
-//    //testExecution.addTestClass( new restPicturesTests( globImageUploaded),"restPicturesTests" );
-//    //testExecution.addTestClass( new restPaintsTests( ), "restPaintsTests" );
-//    //testExecution.run( document.getElementById( 'testDivResult' ) );
-//    publish(new cmdStartTest());
-//}
 var paintsTests;
 var _app;
 function app() {
     return _app;
 }
-//function subscribe( msg: core.pubsub.IPubSubMsg, callback: ( msg: core.pubsub.IPubSubMsg, args?: any[] ) => void , args?: any[] ): core.pubsub.PubSubToken{
 function subscribe(msg, callback) {
-    //return app().PubSub.subscribe( msg, callback, args );
     return app().PubSub.subscribe(msg, callback);
 }
 function publish(msg) {

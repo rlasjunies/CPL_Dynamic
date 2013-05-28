@@ -1,17 +1,5 @@
-/// <reference path="core_pubsub.ts" />
 var core;
 (function (core) {
-    //export function setApp( w: Window, debug?:bool = false ) {
-    //    app = new App( window, debug );
-    //    window.onerror = function ( msg: string, url: string, line: number ) {
-    //        app().log( eLogSeverity.critical, new Error( msg ) );
-    //        if ( app().debug() ) {
-    //            return false; //do alert
-    //        } else {
-    //            return true; //do not alert end user!
-    //        }
-    //    }
-    //}
     (function (enumEntityStatus) {
         enumEntityStatus._map = [];
         enumEntityStatus._map[0] = "success";

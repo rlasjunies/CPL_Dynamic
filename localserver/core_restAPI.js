@@ -1,22 +1,3 @@
-//TODO compare with the usage of request.JSON (jQuery)
-//new Request.JSON(
-//{
-//    url: '/list.json',
-//    onSuccess: function ( json ) {
-//        json.list.each( function ( key, val ) {
-//            new Element( 'LI' )
-//                .set( 'text', val )
-//                .addEvent( 'click', function () {
-//                    alert( 'item ' + key + ' pressed' );
-//                    // alert('item '+val.id+' pressed');
-//                    // considering val is an object instead of raw string, this way you must change set to something like this set('text', val.text)
-//                } )
-//                .inject( $( 'list' ) );
-//            // any other thing you want add to your list item
-//        } );
-//    }
-//} ).get();
-//<ul id = "list" > < / ul >
 var rest;
 (function (rest) {
     (function (enumRestStatus) {
@@ -68,19 +49,12 @@ var rest;
                 xhr.onerror = function (err) {
                     callback(new rest.RestReturn(rest.enumRestStatus.failed, "", new Error(JSON.stringify(err))));
                 };
-                //xhr.setRequestHeader( "Access-Control-Allow-Origin", "*" );
-                //xhr.setRequestHeader( "Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept" );
                 if(postData) {
-                    //if ( typeof ( postData ) === "string" ) {
                     xhr.send(JSON.stringify(postData));
-                    //} else {
-                    //    xhr.send( postData );
-                    //}
-                                    } else {
+                } else {
                     xhr.send();
                 }
             } catch (ex) {
-                //app().log( core.eLogSeverity.critical, ex );
                 throw ex;
             }
         };

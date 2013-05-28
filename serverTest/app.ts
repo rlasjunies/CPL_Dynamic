@@ -73,6 +73,7 @@ class restPicturesTests {
     //}
 }
 
+
 /*  PAINTS  */
 class restPaintsTests{
     //private _paintIDCreated: string;
@@ -243,9 +244,19 @@ function uploadFile() {
 }
 
 window.onload = () => {
-    _app = new core.App( window, false );
+    _app = new core.App(  );
 
     subscribe( new cmdStartTest(), function ( cmdStartTest ) {
+        //Clean the result page before the tests
+        $( "#testDivResultSucceed" ).html( "0" );
+        $( "#testDivResultFailed" ).html( "0" );
+        $( "#listResult" ).empty();
+        $.mobile.changePage( "#pageTestResult" );
+
+        //run the first tests
+        var site = new rest.RESTRequest( "http://cpairelasjunies.com/rest.php/" );
+        paintsTests = new restPaintsTests( site );
+
         paintsTests.test_postPaint( createPaintTestID );
         paintsTests.test_getAll();
     } );
@@ -261,12 +272,12 @@ window.onload = () => {
         }
     } );
 
-    subscribe( new cmdTestAdd( "", "", "" ), function ( cmd: cmdTestAdd ) {
+    subscribe( new cmdTestAdd( null, null, null ), function ( cmd: cmdTestAdd ) {
         $( "#listResult" ).append( "<li id='" + cmd.guid + "' group='" + cmd.group +"' ><h3>" + cmd.name + "</h3><p style='color:white' id='" + cmd.guid + "result'></p></li>" )
         $( "#listResult" ).listview( "refresh" );
     } );
 
-    subscribe( new evtTestFinished( "", true, "" ), function ( evt: evtTestFinished ) {
+    subscribe( new evtTestFinished( null, null, null ), function ( evt: evtTestFinished ) {
         var s: string = evt.message.substr( 0, 100 ) + (evt.message.length > 100 ? " ..." : "");
         if ( evt.passed ) {
             $( "#" + evt.guid + ">:first" ).addClass( "good" );
@@ -308,25 +319,13 @@ var getPaintTestID = core.misc.GUID_new();
 var updatePaintTestID = core.misc.GUID_new();
 var deletePaintTestID = core.misc.GUID_new();
 
-function startTest() {
+//function startTest() {
+//    //testExecution.addTestClass( new restPicturesTests( globImageUploaded),"restPicturesTests" );
+//    //testExecution.addTestClass( new restPaintsTests( ), "restPaintsTests" );
+//    //testExecution.run( document.getElementById( 'testDivResult' ) );  
 
-    //Clean the result page before the tests
-    $( "#testDivResultSucceed" ).html( "0" );
-    $( "#testDivResultFailed" ).html( "0" );
-    $( "#listResult" ).empty();
-    $.mobile.changePage( "#pageTestResult" );
-
-    //shows the result div
-    //paintsTests = new restPaintsTests( "http://cpairelasjunies.com/php/" );
-    var site = new rest.RESTRequest( "http://cpairelasjunies.com/rest.php/" );
-    paintsTests = new restPaintsTests( site );
-    
-    //testExecution.addTestClass( new restPicturesTests( globImageUploaded),"restPicturesTests" );
-    //testExecution.addTestClass( new restPaintsTests( ), "restPaintsTests" );
-    //testExecution.run( document.getElementById( 'testDivResult' ) );  
-
-    publish( new cmdStartTest());
-}
+//    publish(new cmdStartTest());
+//}
 
 
 var paintsTests: restPaintsTests;
@@ -334,32 +333,12 @@ var _app: core.App;
 function app(): core.App {
     return _app;
 }
-function subscribe( msg: core.pubsub.IPubSubMsg, callback: ( msg: core.pubsub.IPubSubMsg, args?: any[] ) => void , args?: any[] ): core.pubsub.PubSubToken{
-    return app().PubSub.subscribe( msg, callback, args );
+
+//function subscribe( msg: core.pubsub.IPubSubMsg, callback: ( msg: core.pubsub.IPubSubMsg, args?: any[] ) => void , args?: any[] ): core.pubsub.PubSubToken{
+function subscribe( msg: core.pubsub.IPubSubMsg, callback: ( msg: core.pubsub.IPubSubMsg) => void ): core.pubsub.PubSubToken {
+    //return app().PubSub.subscribe( msg, callback, args );
+    return app().PubSub.subscribe( msg, callback);
 }
 function publish( msg: core.pubsub.IPubSubMsg ) {
     app().PubSub.publish( msg );
 }
-
-
-//new Request.JSON(
-//{
-//    url: '/list.json',
-//    onSuccess: function ( json ) {
-//        json.list.each( function ( key, val ) {
-//            new Element( 'LI' )
-//                .set( 'text', val )
-//                .addEvent( 'click', function () {
-//                    alert( 'item ' + key + ' pressed' );
-
-//                    // alert('item '+val.id+' pressed');
-//                    // considering val is an object instead of raw string, this way you must change set to something like this set('text', val.text)
-
-//                } )
-//                .inject( $( 'list' ) );
-//            // any other thing you want add to your list item 
-//        } );
-//    }
-//} ).get();
-
-//<ul id = "list" > < / ul >

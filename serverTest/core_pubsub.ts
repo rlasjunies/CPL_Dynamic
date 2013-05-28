@@ -37,13 +37,15 @@ module core.pubsub {
 
     export class CallBackSubscribbed{
         public guid: string;
-        public callback: { ( msg: IPubSubMsg, args?: any[] ): void; };
-        public args: any[];
+        //public callback: { ( msg: IPubSubMsg, args?: any[] ): void; };
+        public callback: { ( msg: IPubSubMsg ): void; };
+        //public args: any[];
         public once: bool = false;
-        constructor( callback: { ( msg: IPubSubMsg, args?: any[] ): void; }, args?: any[] ) {
+        //constructor( callback: { ( msg: IPubSubMsg, args?: any[] ): void; }, args?: any[] ) {
+        constructor( callback: { ( msg: IPubSubMsg): void; }) {
             this.guid = core.misc.GUID_new();
             this.callback = callback;
-            if ( args ) { this.args = args; }
+        //    if ( args ) { this.args = args; }
         }
     }
 
@@ -54,7 +56,8 @@ module core.pubsub {
 
     export class PubSub {
         private _threads: Thread[] = [];
-        subscribe( msg: IPubSubMsg, callback: ( msg: IPubSubMsg, args?: any[] ) => void , args?: any[]  ): PubSubToken {
+//        subscribe( msg: IPubSubMsg, callback: ( msg: IPubSubMsg, args?: any[] ) => void , args?: any[]  ): PubSubToken {
+            subscribe( msg: IPubSubMsg, callback: ( msg: IPubSubMsg) => void): PubSubToken {
             //is a new thread?
             var thread = core.misc.getObjectClass( msg );
             if ( !this._threads[thread] ) {
@@ -63,7 +66,8 @@ module core.pubsub {
 
             //Add the callback to the thread
             var t = this._threads[thread];
-            var cb = new CallBackSubscribbed( callback,args);
+            //var cb = new CallBackSubscribbed( callback,args);
+            var cb = new CallBackSubscribbed( callback);
 
             t.callbacks.push( cb );
 
@@ -71,8 +75,10 @@ module core.pubsub {
             return new PubSubToken( thread, cb.guid );
         }
 
-        subscribeOnce( msg: IPubSubMsg, callback: ( msg: IPubSubMsg, args?: any[] ) => void , args?: any[] ): void {
-            var token = this.subscribe( msg, callback, args );
+        //subscribeOnce( msg: IPubSubMsg, callback: ( msg: IPubSubMsg, args?: any[] ) => void , args?: any[] ): void {
+            subscribeOnce( msg: IPubSubMsg, callback: ( msg: IPubSubMsg) => void ): void {
+            //var token = this.subscribe( msg, callback, args );
+            var token = this.subscribe( msg, callback);
 
             //Change the behavior of the callback
             if ( this._threads[token.thread] ) {
