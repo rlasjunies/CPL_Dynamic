@@ -48,14 +48,14 @@ window.onload = () => {
     var site = new rest.RESTRequest("http://cpairelasjunies.com/rest.php/");
     gApp = new core.App( site );
 
-    subscribe( new cmdStartTest(), function ( cmdStartTest ) {
+    gApp.PubSub.subscribe( new cmdStartTest(), function ( cmdStartTest ) {
         picturesTests.test_getListOfPictures()
         picturesTests.test_deletePicture(globImageUploaded);
         paintsTests.test_postPaint(createPaintTestID);
         paintsTests.test_getAll();
     } );
 
-    subscribe( new evtTestFinished( null, null, null ), function ( evt: evtTestFinished ) {
+    gApp.PubSub.subscribe( new evtTestFinished( null, null, null ), function ( evt: evtTestFinished ) {
         //start the other tests only when we have the paintID created
         if ( ( evt.passed ) && ( evt.guid === createPaintTestID ) ) {
             paintsTests.test_getPaint( getPaintTestID );
@@ -66,12 +66,12 @@ window.onload = () => {
         }
     } );
 
-    subscribe( new cmdTestAdd( "", "", "" ), function ( cmd: cmdTestAdd ) {
+    gApp.PubSub.subscribe( new cmdTestAdd( "", "", "" ), function ( cmd: cmdTestAdd ) {
         $( "#listResult" ).append( "<li id='" + cmd.guid + "' group='" + cmd.group +"' ><h3>" + cmd.name + "</h3><p style='color:white' id='" + cmd.guid + "result'></p></li>" )
         $( "#listResult" ).listview( "refresh" );
     } );
 
-    subscribe( new evtTestFinished( "", true, "" ), function ( evt: evtTestFinished ) {
+    gApp.PubSub.subscribe( new evtTestFinished( "", true, "" ), function ( evt: evtTestFinished ) {
         var s: string = evt.message.substr( 0, 100 ) + (evt.message.length > 100 ? " ..." : "");
         if ( evt.passed ) {
             $( "#" + evt.guid + ">:first" ).addClass( "good" );
@@ -124,7 +124,7 @@ function startTest() {
     paintsTests = new models.paints.PaintsTests( );
     picturesTests = new models.pictures.PicturesTests(globImageUploaded);
 
-    publish( new cmdStartTest());
+    gApp.PubSub.publish( new cmdStartTest());
 }
 
 //var _app: core.App;
@@ -135,13 +135,13 @@ function startTest() {
 //}
 
 
-function subscribe(msg: core.pubsub.IPubSubMsg, callback: (msg: core.pubsub.IPubSubMsg, args?: any[]) => void , args?: any[]): core.pubsub.PubSubToken{
-    //return core.app.PubSub.subscribe( msg, callback, args );
-    return gApp.PubSub.subscribe(msg, callback, args);
-}
-function publish( msg: core.pubsub.IPubSubMsg ) {
-    gApp.PubSub.publish( msg );
-}
+//function subscribe(msg: core.pubsub.IPubSubMsg, callback: (msg: core.pubsub.IPubSubMsg, args?: any[]) => void , args?: any[]): core.pubsub.PubSubToken{
+//    //return core.app.PubSub.subscribe( msg, callback, args );
+//    return gApp.PubSub.subscribe(msg, callback, args);
+//}
+//function publish( msg: core.pubsub.IPubSubMsg ) {
+//    gApp.PubSub.publish( msg );
+//}
 
 
 //new Request.JSON(

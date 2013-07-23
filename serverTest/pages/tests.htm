@@ -26,7 +26,7 @@
             <!--<div id="testDivStart" style="display:none"> -->
             <div id="testDivStart"> 
                 Now you can start the tests using the file ID: <span id="testDivFileId"></span>
-                <button onclick="publish(new cmdStartTest());">Start the tests</button>
+                <button onclick="gApp.PubSub.publish(new cmdStartTest());">Start the tests</button>
             </div>                     
         </div> <!-- content -->
     </div> <!--pageTestUploadfile-->

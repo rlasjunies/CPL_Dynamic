@@ -34,14 +34,14 @@ window.onload = function () {
     var site = new rest.RESTRequest("http://cpairelasjunies.com/rest.php/");
     gApp = new core.App(site);
 
-    subscribe(new cmdStartTest(), function (cmdStartTest) {
+    gApp.PubSub.subscribe(new cmdStartTest(), function (cmdStartTest) {
         picturesTests.test_getListOfPictures();
         picturesTests.test_deletePicture(globImageUploaded);
         paintsTests.test_postPaint(createPaintTestID);
         paintsTests.test_getAll();
     });
 
-    subscribe(new evtTestFinished(null, null, null), function (evt) {
+    gApp.PubSub.subscribe(new evtTestFinished(null, null, null), function (evt) {
         if ((evt.passed) && (evt.guid === createPaintTestID)) {
             paintsTests.test_getPaint(getPaintTestID);
         } else if ((evt.passed) && (evt.guid === getPaintTestID)) {
@@ -51,12 +51,12 @@ window.onload = function () {
         }
     });
 
-    subscribe(new cmdTestAdd("", "", ""), function (cmd) {
+    gApp.PubSub.subscribe(new cmdTestAdd("", "", ""), function (cmd) {
         $("#listResult").append("<li id='" + cmd.guid + "' group='" + cmd.group + "' ><h3>" + cmd.name + "</h3><p style='color:white' id='" + cmd.guid + "result'></p></li>");
         $("#listResult").listview("refresh");
     });
 
-    subscribe(new evtTestFinished("", true, ""), function (evt) {
+    gApp.PubSub.subscribe(new evtTestFinished("", true, ""), function (evt) {
         var s = evt.message.substr(0, 100) + (evt.message.length > 100 ? " ..." : "");
         if (evt.passed) {
             $("#" + evt.guid + ">:first").addClass("good");
@@ -119,13 +119,6 @@ function startTest() {
     paintsTests = new models.paints.PaintsTests();
     picturesTests = new models.pictures.PicturesTests(globImageUploaded);
 
-    publish(new cmdStartTest());
-}
-
-function subscribe(msg, callback, args) {
-    return gApp.PubSub.subscribe(msg, callback, args);
-}
-function publish(msg) {
-    gApp.PubSub.publish(msg);
+    gApp.PubSub.publish(new cmdStartTest());
 }
 //@ sourceMappingURL=apptests.js.map

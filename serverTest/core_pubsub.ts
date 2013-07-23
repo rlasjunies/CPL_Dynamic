@@ -23,10 +23,11 @@
 // 7) identicate if the message will be used only once. If yes, then it will automatically unsubscribe after use.
 //      is it really usefull in really application (currently the remark is posted related to the test framework)
 //
-module core.pubsub {
+module core {
+    export module pubsub { 
     export interface IPubSubMsg {
     }
-    export interface IPubSubEvt_FunctionReturn{
+    export interface IPubSubEvt_FunctionReturn {
         status: core.misc.enumEntityStatus;
         value: any;
         error: Error;
@@ -35,105 +36,97 @@ module core.pubsub {
         public callbacks: CallBackSubscribbed[] = [];
     }
 
-    export class CallBackSubscribbed{
+    export class CallBackSubscribbed {
         public guid: string;
-<<<<<<< HEAD
-        //public callback: { ( msg: IPubSubMsg, args?: any[] ): void; };
-        public callback: { ( msg: IPubSubMsg ): void; };
-        //public args: any[];
-        public once: bool = false;
-        //constructor( callback: { ( msg: IPubSubMsg, args?: any[] ): void; }, args?: any[] ) {
-        constructor( callback: { ( msg: IPubSubMsg): void; }) {
-=======
-        public callback: { ( msg: IPubSubMsg, args?: any[] ): void; };
+        public callback: { (msg: IPubSubMsg, args?: any[]): void; };
         public args: any[];
         public once: boolean = false;
-        constructor( callback: { ( msg: IPubSubMsg, args?: any[] ): void; }, args?: any[] ) {
->>>>>>> update of the we
+        constructor(callback: { (msg: IPubSubMsg, args?: any[]): void; }, args?: any[]) {
             this.guid = core.misc.GUID_new();
             this.callback = callback;
-        //    if ( args ) { this.args = args; }
+            //    if ( args ) { this.args = args; }
         }
     }
 
     export class PubSubToken {
         //constructor( public thread: string, public callback: ( msg: IPubSubMsg ) => void ) {}
-        constructor(public thread: string, public guid:string){}
+        constructor(public thread: string, public guid: string) { }
     }
 
     export class PubSub {
         private _threads: Thread[] = [];
-//        subscribe( msg: IPubSubMsg, callback: ( msg: IPubSubMsg, args?: any[] ) => void , args?: any[]  ): PubSubToken {
-            subscribe( msg: IPubSubMsg, callback: ( msg: IPubSubMsg) => void): PubSubToken {
+        //        subscribe( msg: IPubSubMsg, callback: ( msg: IPubSubMsg, args?: any[] ) => void , args?: any[]  ): PubSubToken {
+        subscribe(msg: IPubSubMsg, callback: (msg: IPubSubMsg) => void ): PubSubToken {
             //is a new thread?
-            var thread = core.misc.getObjectClass( msg );
-            if ( !this._threads[thread] ) {
+            var thread = core.misc.getObjectClass(msg);
+            if (!this._threads[thread]) {
                 this._threads[thread] = new Thread();
             }
 
             //Add the callback to the thread
             var t = this._threads[thread];
             //var cb = new CallBackSubscribbed( callback,args);
-            var cb = new CallBackSubscribbed( callback);
+            var cb = new CallBackSubscribbed(callback);
 
-            t.callbacks.push( cb );
+            t.callbacks.push(cb);
 
             //this._threads[thread].subscribed.push( callback );
-            return new PubSubToken( thread, cb.guid );
+            return new PubSubToken(thread, cb.guid);
         }
 
         //subscribeOnce( msg: IPubSubMsg, callback: ( msg: IPubSubMsg, args?: any[] ) => void , args?: any[] ): void {
-            subscribeOnce( msg: IPubSubMsg, callback: ( msg: IPubSubMsg) => void ): void {
+        subscribeOnce(msg: IPubSubMsg, callback: (msg: IPubSubMsg) => void ): void {
             //var token = this.subscribe( msg, callback, args );
-            var token = this.subscribe( msg, callback);
+            var token = this.subscribe(msg, callback);
 
             //Change the behavior of the callback
-            if ( this._threads[token.thread] ) {
+            if (this._threads[token.thread]) {
                 var thread = this._threads[token.thread];
                 var len = thread.callbacks.length;
 
-                while ( len-- ) {
-                    if ( thread.callbacks[len].guid === token.guid ) {
+                while (len--) {
+                    if (thread.callbacks[len].guid === token.guid) {
                         thread.callbacks[len].once = true;
                     }
                 }
             }
         }
 
-        unsubscribe( token: PubSubToken ) {
+        unsubscribe(token: PubSubToken) {
             //does the thread exists?
-            if ( this._threads[token.thread] ) {
+            if (this._threads[token.thread]) {
                 var thread = this._threads[token.thread];
                 var len = thread.callbacks.length;
 
-                while ( len-- ) {
-                    if ( thread.callbacks[len].guid === token.guid ) {
-                        thread.callbacks.splice( len, 1 );
+                while (len--) {
+                    if (thread.callbacks[len].guid === token.guid) {
+                        thread.callbacks.splice(len, 1);
                     }
                 }
             }
         }
 
-        publish( msg: IPubSubMsg ) {
-            var sThread = core.misc.getObjectClass( msg );
-            if ( this._threads[sThread] ) {
+        publish(msg: IPubSubMsg) {
+            var sThread = core.misc.getObjectClass(msg);
+            if (this._threads[sThread]) {
                 var oThread = this._threads[sThread];
                 var len = oThread.callbacks.length;
 
-                while ( len-- ) {
+                while (len--) {
                     //core.Logger.log( "PubSub.BeforeCall - " + JSON.stringify( oThread.callbacks[len].callback ) + "... args:" + JSON.stringify( oThread.callbacks[len].args ));
-                    if ( oThread.callbacks[len].args ){
-                        oThread.callbacks[len].callback( msg, oThread.callbacks[len].args );
+                    if (oThread.callbacks[len].args) {
+                        oThread.callbacks[len].callback(msg, oThread.callbacks[len].args);
                     } else {
-                        oThread.callbacks[len].callback( msg);
+                        oThread.callbacks[len].callback(msg);
                     }
-                    if ( oThread.callbacks[len].once ) {
+                    if (oThread.callbacks[len].once) {
                         core.Logger.log("PubSub.RemoveOnceMessages")
-                        oThread.callbacks.splice( len, 1 );
+                        oThread.callbacks.splice(len, 1);
                     }
                 }
             }
         }
     }
 
+}
 }
