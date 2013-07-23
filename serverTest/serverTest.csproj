@@ -17,13 +17,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="app.css" />
-    <TypeScriptCompile Include="core.ts" />
     <TypeScriptCompile Include="core_misc.ts" />
-    <Content Include="app.js">
-      <DependentUpon>app.ts</DependentUpon>
+    <Content Include="appAdmin.js">
+      <DependentUpon>appAdmin.ts</DependentUpon>
     </Content>
-    <Content Include="app.min.js">
-      <DependentUpon>app.ts</DependentUpon>
+    <Content Include="apptests.js">
+      <DependentUpon>apptests.ts</DependentUpon>
     </Content>
     <Content Include="Content\images\ajax-loader.gif" />
     <Content Include="Content\images\icons-18-black.png" />
@@ -36,10 +35,9 @@
     <Content Include="Content\jquery.mobile.structure-1.3.0.min.css" />
     <Content Include="Content\jquery.mobile.theme-1.3.0.css" />
     <Content Include="Content\jquery.mobile.theme-1.3.0.min.css" />
+    <TypeScriptCompile Include="appAdmin.ts" />
+    <Content Include="pages\admin.htm" />
     <Content Include="core.js">
-      <DependentUpon>core.ts</DependentUpon>
-    </Content>
-    <Content Include="core.min.js">
       <DependentUpon>core.ts</DependentUpon>
     </Content>
     <Content Include="core_misc.js">
@@ -60,46 +58,36 @@
     <Content Include="core_restAPI.min.js">
       <DependentUpon>core_restAPI.ts</DependentUpon>
     </Content>
-    <Content Include="default.htm" />
-    <Content Include="Scripts\Object.Identical.js" />
-    <Content Include="model\paints.js">
+    <Content Include="pages\tests.htm" />
+    <TypeScriptCompile Include="core.ts" />
+    <TypeScriptCompile Include="models\pictures.ts" />
+    <TypeScriptCompile Include="models\paintsTests.ts" />
+    <Content Include="models\paintsTests.js">
+      <DependentUpon>paintsTests.ts</DependentUpon>
+    </Content>
+    <Content Include="models\pictures.js">
+      <DependentUpon>pictures.ts</DependentUpon>
+    </Content>
+    <TypeScriptCompile Include="models\picturesTests.ts" />
+    <Content Include="models\picturesTests.js">
+      <DependentUpon>picturesTests.ts</DependentUpon>
+    </Content>
+    <Content Include="libs\Object.Identical.js" />
+    <Content Include="models\paints.js">
       <DependentUpon>paints.ts</DependentUpon>
     </Content>
-    <Content Include="model\paints.min.js">
+    <Content Include="models\paints.min.js">
       <DependentUpon>paints.ts</DependentUpon>
     </Content>
-    <Content Include="model\paints.ts" />
+    <Content Include="models\paints.ts" />
     <TypeScriptCompile Include="core_pubsub.ts" />
     <TypeScriptCompile Include="core_restAPI.ts" />
-    <TypeScriptCompile Include="app.ts" />
+    <TypeScriptCompile Include="apptests.ts" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
-    <None Include="Scripts\jquery-1.9.1.intellisense.js" />
-    <Content Include="Scripts\jquery-1.9.1.js" />
-    <Content Include="Scripts\jquery-1.9.1.min.js" />
-    <Content Include="Scripts\jquery.mobile-1.3.0.js" />
-    <Content Include="Scripts\jquery.mobile-1.3.0.min.js" />
-    <Content Include="Scripts\jquery.mobile-1.3.1.js" />
-    <Content Include="Scripts\typings\jquerymobile\jquerymobile.d.ts" />
-    <Content Include="Scripts\typings\jquery\jquery.d.ts" />
-    <Content Include="Scripts\typings\node\node-0.8.8.d.ts" />
-    <Content Include="Scripts\typings\node\node.d.ts" />
-    <Content Include="Scripts\_references.js" />
-    <Content Include="tests.js">
-      <DependentUpon>app.ts</DependentUpon>
-    </Content>
-    <Content Include="tests.js.map">
-      <DependentUpon>app.ts</DependentUpon>
-    </Content>
-    <Content Include="tests.min.js">
-      <DependentUpon>app.ts</DependentUpon>
-    </Content>
-    <Content Include="web.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="model\paints.js.map">
-      <DependentUpon>paints.ts</DependentUpon>
+    <Content Include="core_misc.js.map">
+      <DependentUpon>core_misc.ts</DependentUpon>
     </Content>
     <Content Include="core_pubsub.js.map">
       <DependentUpon>core_pubsub.ts</DependentUpon>
@@ -107,19 +95,45 @@
     <Content Include="core_restAPI.js.map">
       <DependentUpon>core_restAPI.ts</DependentUpon>
     </Content>
-    <Content Include="model\paints.min.js.map">
-      <DependentUpon>paints.js</DependentUpon>
-    </Content>
     <Content Include="core.js.map">
       <DependentUpon>core.ts</DependentUpon>
     </Content>
-    <Content Include="core_misc.js.map">
-      <DependentUpon>core_misc.ts</DependentUpon>
+    <Content Include="models\pictures.js.map">
+      <DependentUpon>pictures.ts</DependentUpon>
     </Content>
-    <Content Include="app.js.map">
-      <DependentUpon>app.ts</DependentUpon>
+    <Content Include="models\paintsTests.js.map">
+      <DependentUpon>paintsTests.ts</DependentUpon>
     </Content>
-    <Content Include="Scripts\jquery-1.9.1.min.map" />
+    <Content Include="models\picturesTests.js.map">
+      <DependentUpon>picturesTests.ts</DependentUpon>
+    </Content>
+    <Content Include="appAdmin.js.map">
+      <DependentUpon>appAdmin.ts</DependentUpon>
+    </Content>
+    <Content Include="apptests.js.map">
+      <DependentUpon>apptests.ts</DependentUpon>
+    </Content>
+    <None Include="libs\jquery-1.9.1.intellisense.js" />
+    <Content Include="libs\jquery-1.9.1.js" />
+    <Content Include="libs\jquery-1.9.1.min.js" />
+    <Content Include="libs\jquery.mobile-1.3.0.js" />
+    <Content Include="libs\jquery.mobile-1.3.0.min.js" />
+    <Content Include="libs\jquery.mobile-1.3.1.js" />
+    <Content Include="libs\typings\jquerymobile\jquerymobile.d.ts" />
+    <Content Include="libs\typings\jquery\jquery.d.ts" />
+    <Content Include="libs\typings\node\node-0.8.8.d.ts" />
+    <Content Include="libs\typings\node\node.d.ts" />
+    <Content Include="libs\_references.js" />
+    <Content Include="web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="models\paints.js.map">
+      <DependentUpon>paints.ts</DependentUpon>
+    </Content>
+    <Content Include="models\paints.min.js.map">
+      <DependentUpon>paints.js</DependentUpon>
+    </Content>
+    <Content Include="libs\jquery-1.9.1.min.map" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>

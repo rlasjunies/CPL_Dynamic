@@ -1,4 +1,11 @@
 module core.misc {
+    export enum enumEntityStatus { success, failed }
+    export interface IEntities {
+        id: string;
+    }
+    export enum eLogSeverity { critical, warning, information }
+
+
     /* Returns the class name of the argument or undefined if
    it's not a valid JavaScript object.
     */
@@ -22,4 +29,5 @@ module core.misc {
         } );
         return guid;
     };
+
 }

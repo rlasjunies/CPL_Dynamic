@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Automatic tests</title>
+    <link href="/app.css" rel="stylesheet" type="text/css" />
+    <!--<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.css" />-->
+    <link rel="stylesheet" href="/libs/jquery.mobile-1.3.1.css" />
+</head>
+<body>
+
+    <div data-role="page" id="pageTestUploadFile" data-theme="a" class="my-page" >
+        <div data-role="header">Tests initialization</div>
+        <div data-role="content"> 
+            <form id="form1" enctype="multipart/form-data" method="post" action="http://cpairelasjunies.com/php/Images">
+                Please select a file to upload prior to start the automatic tests.
+                <div class="row">
+                    <label for="fileToUpload">Select a file to upload</label><br/>
+                    <input type="file" name="fileToUpload" id="fileToUpload"/>
+                </div>
+                <div class="row">
+                    <input type="button" onclick="uploadFile();" value="Upload file" />
+                    <div id="fileUploadedID"></div>
+                </div>
+            </form>
+
+            <!--<div id="testDivStart" style="display:none"> -->
+            <div id="testDivStart"> 
+                Now you can start the tests using the file ID: <span id="testDivFileId"></span>
+                <button onclick="publish(new cmdStartTest());">Start the tests</button>
+            </div>                     
+        </div> <!-- content -->
+    </div> <!--pageTestUploadfile-->
+    
+       
+    <div data-role="page" id="pageTestResult" data-theme="a" >
+        <div data-role="header">Tests results</div>
+        <div data-role="content" >
+            <h1><span>Succeed:<span id="testDivResultSucceed" class="good">0</span> ... Failed:<span id="testDivResultFailed" class="bad">0</span></span></h1>
+            <ul id="listResult" data-role="listview" data-autodividers="true" data-theme="a" data-inset="true">
+            </ul>
+                
+        </div> <!--content-->
+    </div> <!--pageTestResult-->
+    
+    <!-- <script src="http://code.jquery.com/jquery-1.9.1.js"></script> -->
+    <!-- <script src="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.js"></script>-->
+
+    <script src="/libs/jquery-1.9.1.js"></script>
+    <script src="/libs/jquery.mobile-1.3.1.js"></script>
+    <script src="/core_misc.js"></script>
+    <script src="/core_pubsub.js"></script>
+    <script src="/core.js"></script>  
+    <script src="/core_restAPI.js"></script>
+    <script src="/models/paints.js"></script>
+    <script src="/models/paintsTests.js"></script>
+    <script src="/models/pictures.js"></script>
+    <script src="/models/picturesTests.js"></script>
+    <script src="/apptests.js"></script>
+
+</body>
+</html>

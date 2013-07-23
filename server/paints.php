@@ -33,14 +33,14 @@ function getPaint($id) {
 function addPaint() {
     $request = Slim\Slim::getInstance()->request();
     $paint = json_decode($request->getBody());
-    $sql = "INSERT INTO paints (name, year, description, picture) VALUES (:name, :year, :description, :picture)";
+    $sql = "INSERT INTO paints (name, year, description, Picture) VALUES (:name, :year, :description, :Picture)";
     try {
         $db = getConnection();
         $stmt = $db->prepare($sql);
         $stmt->bindParam("name", $paint->name);
         $stmt->bindParam("year", $paint->year);
         $stmt->bindParam("description", $paint->description);
-        $stmt->bindParam("picture", $paint->picture);
+        $stmt->bindParam("Picture", $paint->Picture);
         $stmt->execute();
         $paint->id = $db->lastInsertId();
         $db = null;
@@ -54,14 +54,14 @@ function updatePaint($id) {
     $request = Slim\Slim::getInstance()->request();
     $body = $request->getBody();
     $paint = json_decode($body);
-    $sql = "UPDATE paints SET name=:name, year=:year, description=:description, picture=:picture  WHERE id=:id";
+    $sql = "UPDATE paints SET name=:name, year=:year, description=:description, Picture=:Picture  WHERE id=:id";
     try {
         $db = getConnection();
         $stmt = $db->prepare($sql);
         $stmt->bindParam("name", $paint->name);
         $stmt->bindParam("year", $paint->year);
         $stmt->bindParam("description", $paint->description);
-        $stmt->bindParam("picture", $paint->picture);
+        $stmt->bindParam("Picture", $paint->Picture);
         $stmt->bindParam("id", $id);
         $stmt->execute();
         $db = null;

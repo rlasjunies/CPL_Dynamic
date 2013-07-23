@@ -14,7 +14,7 @@
 //      The concept behind objectdiff could help supporting this use case
 // 5) improve usability/readability
 //      the current pub/sub is not very readable and (too?) verbose
-//          app().PubSub.subscribe( new MsgTestStart(), function ( MsgTestStart ) {
+//          core.app.PubSub.subscribe( new MsgTestStart(), function ( MsgTestStart ) {
 //              paintsTests.test_postPaint();
 //          } );
 // 6) shoudl we create 2 message interfaces:
@@ -27,7 +27,7 @@ module core.pubsub {
     export interface IPubSubMsg {
     }
     export interface IPubSubEvt_FunctionReturn{
-        status: core.enumEntityStatus;
+        status: core.misc.enumEntityStatus;
         value: any;
         error: Error;
     }
@@ -37,12 +37,19 @@ module core.pubsub {
 
     export class CallBackSubscribbed{
         public guid: string;
+<<<<<<< HEAD
         //public callback: { ( msg: IPubSubMsg, args?: any[] ): void; };
         public callback: { ( msg: IPubSubMsg ): void; };
         //public args: any[];
         public once: bool = false;
         //constructor( callback: { ( msg: IPubSubMsg, args?: any[] ): void; }, args?: any[] ) {
         constructor( callback: { ( msg: IPubSubMsg): void; }) {
+=======
+        public callback: { ( msg: IPubSubMsg, args?: any[] ): void; };
+        public args: any[];
+        public once: boolean = false;
+        constructor( callback: { ( msg: IPubSubMsg, args?: any[] ): void; }, args?: any[] ) {
+>>>>>>> update of the we
             this.guid = core.misc.GUID_new();
             this.callback = callback;
         //    if ( args ) { this.args = args; }
@@ -114,14 +121,14 @@ module core.pubsub {
                 var len = oThread.callbacks.length;
 
                 while ( len-- ) {
-                    //console.log( "PubSub.BeforeCall - " + JSON.stringify( oThread.callbacks[len].callback ) + "... args:" + JSON.stringify( oThread.callbacks[len].args ));
+                    //core.Logger.log( "PubSub.BeforeCall - " + JSON.stringify( oThread.callbacks[len].callback ) + "... args:" + JSON.stringify( oThread.callbacks[len].args ));
                     if ( oThread.callbacks[len].args ){
                         oThread.callbacks[len].callback( msg, oThread.callbacks[len].args );
                     } else {
                         oThread.callbacks[len].callback( msg);
                     }
                     if ( oThread.callbacks[len].once ) {
-                        console.log( "PubSub.RemoveOnceMessages" );
+                        core.Logger.log("PubSub.RemoveOnceMessages")
                         oThread.callbacks.splice( len, 1 );
                     }
                 }

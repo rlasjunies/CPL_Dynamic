@@ -31,7 +31,8 @@ module rest {
         private _response: string;
         private _error: Error;
 
-        constructor( status: rest.enumRestStatus, response: string, error?: Error = null ) {
+        constructor(status: rest.enumRestStatus, response: string, error?: Error) {
+            if (error == null) { error = null };
             this._status = status;
             this._response = response;
             this._error = error;
@@ -91,7 +92,7 @@ module rest {
                         xhr.send();
                     }
                 } catch ( ex ) {
-                    //app().log( core.eLogSeverity.critical, ex );
+                    //core.app.log( core.eLogSeverity.critical, ex );
                     throw ex;
                 }
         }

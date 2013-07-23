@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Automatic tests</title>
+    <link href="app.css" rel="stylesheet" type="text/css" />
+    <!--<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.css" />-->
+    <link rel="stylesheet" href="libs/jquery.mobile-1.3.1.css" />
+</head>
+<body>
+
+    <div data-role="page" id="pageAdminPaints" data-theme="a" class="my-page" >
+        <div data-role="header">Paints list admin</div>
+        <div data-role="content"> 
+            <ul id="listPaints" data-role="listview" data-autodividers="true" data-theme="a" data-inset="true">
+            </ul>
+        </div> <!-- content -->
+    </div> <!--pageTestUploadfile-->
+    
+       
+    <div data-role="page" id="pageAdminPaint" data-theme="a" >
+        <div data-role="header">Paint detail</div>
+        <div data-role="content" >
+        </div> <!--content-->
+    </div> <!--pageTestResult-->
+    
+    <!-- <script src="http://code.jquery.com/jquery-1.9.1.js"></script> -->
+    <!-- <script src="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.js"></script>-->
+    <script src="libs/jquery-1.9.1.js"></script>
+    <script src="libs/jquery.mobile-1.3.1.js"></script>
+
+    <script src="core_misc.js"></script>
+    <script src="core_pubsub.js"></script>
+    <script src="core.js"></script>  
+    <script src="model/paints.js"></script>
+    <script src="core_restAPI.js"></script>
+    <script src="appAdmin.js"></script>
+
+</body>
+</html>

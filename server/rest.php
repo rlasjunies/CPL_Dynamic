@@ -3,7 +3,7 @@
 require 'Slim/Slim.php';
 include 'dbconnection.php';
 include 'paints.php';
-include 'pictures.php';
+include 'Pictures.php';
 
 Slim\Slim::registerAutoloader();
 
@@ -20,10 +20,10 @@ $app->post('/paints', 'addPaint');
 $app->put('/paints/:id', 'updatePaint');
 $app->delete('/paints/:id',   'deletePaint');
 
-/* PICTURES */
-$app->get('/pictures', 'getPictures');
-$app->post('/pictures', 'addPicture');
-$app->delete('/pictures/:id', 'deletePicture');
+/* PictureS */
+$app->get('/Pictures', 'getPictures');
+$app->post('/Pictures', 'addPicture');
+$app->delete('/Pictures/:id', 'deletePicture');
   
 $app->run();
   

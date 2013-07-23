@@ -102,7 +102,7 @@
     <TypeScriptCompileOnBuild>true</TypeScriptCompileOnBuild>
     <TypeScriptGenerateJsFile>true</TypeScriptGenerateJsFile>
     <TypeScriptKeepComments>false</TypeScriptKeepComments>
-    <TypeScriptMinify>true</TypeScriptMinify>
+    <TypeScriptMinify>false</TypeScriptMinify>
     <TypeScriptProduceSourceMap>true</TypeScriptProduceSourceMap>
     <TypeScriptResaveWithUtf8BOM>true</TypeScriptResaveWithUtf8BOM>
     <TypeScriptShowPreviewWindow>false</TypeScriptShowPreviewWindow>
