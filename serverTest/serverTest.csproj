@@ -48,14 +48,11 @@
     <Content Include="core_restAPI.js">
       <DependentUpon>core_restAPI.ts</DependentUpon>
     </Content>
+    <TypeScriptCompile Include="models\paintsTests.ts" />
     <Content Include="pages\admin.htm" />
     <Content Include="pages\tests.htm" />
     <TypeScriptCompile Include="core.ts" />
     <TypeScriptCompile Include="models\pictures.ts" />
-    <TypeScriptCompile Include="models\paintsTests.ts" />
-    <Content Include="models\paintsTests.js">
-      <DependentUpon>paintsTests.ts</DependentUpon>
-    </Content>
     <Content Include="models\pictures.js">
       <DependentUpon>pictures.ts</DependentUpon>
     </Content>
@@ -79,9 +76,6 @@
     <Content Include="packages.config" />
     <Content Include="models\pictures.js.map">
       <DependentUpon>pictures.ts</DependentUpon>
-    </Content>
-    <Content Include="models\paintsTests.js.map">
-      <DependentUpon>paintsTests.ts</DependentUpon>
     </Content>
     <Content Include="models\picturesTests.js.map">
       <DependentUpon>picturesTests.ts</DependentUpon>

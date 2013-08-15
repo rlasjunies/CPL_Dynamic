@@ -49,6 +49,17 @@ window.onload = () => {
     gApp = new core.App( site );
 
     gApp.PubSub.subscribe( new cmdStartTest(), function ( cmdStartTest ) {
+
+        // start the tests
+        //Clean the result page before the tests
+        $( "#testDivResultSucceed" ).html( "0" );
+        $( "#testDivResultFailed" ).html( "0" );
+        $( "#listResult" ).empty();
+        $.mobile.changePage( "#pageTestResult" );
+
+        paintsTests = new models.paints.PaintsTests();
+        picturesTests = new models.pictures.PicturesTests( globImageUploaded );
+
         picturesTests.test_getListOfPictures()
         picturesTests.test_deletePicture(globImageUploaded);
         paintsTests.test_postPaint(createPaintTestID);
@@ -113,19 +124,19 @@ var getPaintTestID = core.misc.GUID_new();
 var updatePaintTestID = core.misc.GUID_new();
 var deletePaintTestID = core.misc.GUID_new();
 
-function startTest() {
+//function startTest() {
 
-    //Clean the result page before the tests
-    $( "#testDivResultSucceed" ).html( "0" );
-    $( "#testDivResultFailed" ).html( "0" );
-    $( "#listResult" ).empty();
-    $.mobile.changePage( "#pageTestResult" );
+//    //Clean the result page before the tests
+//    $( "#testDivResultSucceed" ).html( "0" );
+//    $( "#testDivResultFailed" ).html( "0" );
+//    $( "#listResult" ).empty();
+//    $.mobile.changePage( "#pageTestResult" );
 
-    paintsTests = new models.paints.PaintsTests( );
-    picturesTests = new models.pictures.PicturesTests(globImageUploaded);
+//    paintsTests = new models.paints.PaintsTests( );
+//    picturesTests = new models.pictures.PicturesTests(globImageUploaded);
 
-    gApp.PubSub.publish( new cmdStartTest());
-}
+//    gApp.PubSub.publish( new cmdStartTest());
+//}
 
 //var _app: core.App;
 //var _app: core.App;
