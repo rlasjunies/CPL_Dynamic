@@ -1,4 +1,12 @@
-﻿var globImageUploaded;
+﻿/// <reference path="models/paintsTests.ts" />
+/// <reference path="core.ts" />
+/// <reference path="models/picturesTests.ts" />
+/// <reference path="libs/typings/jquerymobile/jquerymobile.d.ts" />
+/// <reference path="libs/typings/jquery/jquery.d.ts" />
+/// <reference path="core_pubsub.ts" />
+/// <reference path="core_restAPI.ts" />
+/// <reference path="models/paints.ts" />
+var globImageUploaded;
 var picturesTests;
 var paintsTests;
 
@@ -11,13 +19,17 @@ function uploadFile() {
     site.request(rest.eRequestVerb.POST, "pictures", fd, function (result) {
         switch (result.status()) {
             case rest.enumRestStatus.failed:
+                //Fail
                 document.getElementById("fileUploadResult").innerHTML = "Upload failed>>" + result.error() + "<<<";
                 break;
             case rest.enumRestStatus.success:
+                //succeed?
+                //check the returned value and collect the ID
                 var restReturn = result.response();
                 document.getElementById("fileUploadedID").innerHTML = restReturn.status;
                 core.Logger.log(restReturn.value.id);
 
+                //Prepare the test panel
                 var testDivFileId = document.getElementById("testDivFileId");
                 testDivFileId.innerHTML = restReturn.value.id;
                 globImageUploaded = restReturn.value.id;
@@ -105,12 +117,14 @@ var evtTestFinished = (function () {
     return evtTestFinished;
 })();
 
+//Event registration
 var createPaintTestID = core.misc.GUID_new();
 var getPaintTestID = core.misc.GUID_new();
 var updatePaintTestID = core.misc.GUID_new();
 var deletePaintTestID = core.misc.GUID_new();
 
 function startTest() {
+    //Clean the result page before the tests
     $("#testDivResultSucceed").html("0");
     $("#testDivResultFailed").html("0");
     $("#listResult").empty();
@@ -121,4 +135,4 @@ function startTest() {
 
     gApp.PubSub.publish(new cmdStartTest());
 }
-//@ sourceMappingURL=apptests.js.map
+//# sourceMappingURL=apptests.js.map

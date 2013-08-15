@@ -104,7 +104,7 @@ class cmdTestAdd implements core.pubsub.IPubSubMsg{
     constructor( public guid: string, public group:string, public name: string ) {}
 }
 class evtTestFinished implements core.pubsub.IPubSubMsg{
-    constructor ( public guid:string, public passed:bool, public message: string){}
+    constructor ( public guid:string, public passed:boolean, public message: string){}
 }
 
 //Event registration
